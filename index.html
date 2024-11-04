@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог товаров</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* background-color: #f4f4f4; */
+            background: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            margin: 0;
+            padding: 0;
+            
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product {
+            background-color: var(--tg-theme-bg-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: translateY(-5px);
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+        }
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+        .product-info h3 {
+            margin: 10px 0;
+            font-size: 18px;
+            color: var(--tg-theme-text-color);
+        }
+        .product-info p {
+            color: var(--tg-theme-text-color);
+            margin: 10px 0;
+        }
+        .product-info .price {
+            font-size: 20px;
+            color: #10e657;
+            margin: 10px 0;
+        }
+        .product-info .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            border: 2px solid rgb(255, 123, 0);
+            background-color: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            text-decoration: none;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+        .product-info .btn:hover {
+            background-color: #ff9100;
+        }
+        .form-popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: none; /* Убрана рамка */
+        z-index: 9;
+        background-color: var(--tg-theme-bg-color); /* Светлый фон */
+        color: var(--tg-theme-text-color);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Мягкая тень */
+        overflow: hidden; /* Скрыть все элементы, которые выходят за рамки */
+        max-width: 600px; /* Увеличим максимальную ширину */
+        width: 90%; /* Ширина формы */
+    }
+
+    .form-container {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-container input[type=text], 
+    .form-container input[type=email], 
+    .form-container select {
+        width: 90%;
+        padding: 12px;
+        margin: 5px 0 10px 0;
+        border: 1px solid #dee2e6; /* Нейтральный цвет рамки */
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+
+    .form-container input[type=text]:focus, 
+    .form-container input[type=email]:focus, 
+    .form-container select:focus {
+        border-color: #80bdff; /* Цвет рамки при фокусе */
+        outline: none; /* Убрать стандартный фокус */
+    }
+
+    .form-container .btn_out {
+        background-color: #5cb85c; /* Мягкий зеленый фон */
+        color: white;
+        padding: 12px 15px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .form-container .btn_out:hover {
+        background-color: #449d44; /* Темный зеленый при наведении */
+        transform: translateY(-1px); /* Легкое поднятие кнопки при наведении */
+    }
+
+    .form-container .cancel {
+        background-color: #d9534f; /* Красный цвет для кнопки 'Закрыть' */
+        color: white;
+        padding: 12px 15px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .form-container .cancel:hover {
+        background-color: #6e0400; /* Темный красный при наведении */
+    }
+
+    .form-container .btn-out {
+        background-color: #0275d8; /* Синий цвет для кнопки 'Отправить' */
+    }
+
+    .form-container .btn-out:hover {
+        background-color: #025aa5; /* Темный синий при наведении */
+    }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Начало товара -->
+    <div class="product">
+        <img src="LiraP-580UV.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Lira P-580UV</h3>
+            <p>Современная двухдиапазонная радиостанция Lira P-580UV для общения в частотных диапазонах VHF 136-174 МГц и UHF 400-470 МГц 5 Ватт</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDM2000DMR50(UHF)SFR.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Lira DM 2000 DMR 50 ватт(UHF) SFR</h3>
+            <p>LIRA DM 2000 ,ни что иное как ретранслятор Lira DR 1000 в мобильном исполнении без корпуса с блоком питания ретранслятора от сети 220 в.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDR-1000ADHOC50(VHF).png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Lira DR-1000 AD HOC 50 ватт(VHF)</h3>
+            <p>Функция AD-HOC это режим работы ретранслятора который позволяет по воздуху(радиоканалу) увязываться с аналогичным ретранслятором,и создавать свою сеть. Без дополнительных подкол.чений чрезе интернет,интранет и так далее.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDR-1000AdHocDMR50(UHF)NEW.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Lira DR-1000 Ad Hoc DMR 50 ватт(UHF) NEW</h3>
+            <p>Функция AD-HOC это режим работы ретранслятора который позволяет по воздуху(радиоканалу) увязываться с аналогичным ретранслятором,и создавать свою сеть. Без дополнительных подкол.чений чрезе интернет,интранет и так далее.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDR-1000DMR50(UHF)NEW.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Lira DR-1000 DMR 50 ватт(UHF) NEW</h3>
+            <p>Новая версия ретранслятора Lira DR 1000 ,в новом,более удобном корпусе. Основной функционал,остался без изменений.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDR-1000DMR50(VHF)NEW.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Lira DR-1000 DMR 50 ватт(VHF) NEW</h3>
+            <p>Новая версия ретранслятора Lira DR 1000 ,в новом,более удобном корпусе. Основной функционал,остался без изменений.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="RHLIRADMR.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Радиошлюз LIRA DMR</h3>
+            <p>DMR радиошлюз для объединения радиосетей в работающих в стандаре DMR.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDM-1000.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira DM-1000</h3>
+            <p>Радиостанция Lira DM-1000</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="Lira DP-100.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira DP-100</h3>
+            <p>Цифро-аналоговая радиостанция Lira DP-100 - Хорошее и наверное самое выгодное решение на сегодня для плавного перехода в цифровую связь.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDP-200.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira DP - 200</h3>
+            <p>Радиостанция Lira DP-200 диапазон частот 400-470 мгц
+
+                Рация Lira DP-200 V диапазон частот 136-174 мГц
+                
+                Цифро-аналоговая радиостанция Lira DP-200 - Хорошее и выгодное решение для плавного перехода в цифровую связь.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDP-3800DMR.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira DP-3800 DMR</h3>
+            <p>Портативная цифровая рация Lira DP-3800 может работать как в аналоговом, так и в цифровом режиме.
+
+                Режим ретранслятора  SFR на той же частоте. </p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDP-3800MDMR.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira DP-3800M DMR</h3>
+            <p>Радиостанция Лира 3800 м,оснащена цветным дисплеем, полноформатной клавиатурой и обладает расширенным набор функций таких как: Роуминг, Man Down, Alone Worker, Emergency Alert (Цифровая Экстренная Система/Сигнализация), SMS и шифрования. </p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDP-3800MDMRV.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira DP-3800M DMR V</h3>
+            <p>Радиостанция оснащена цветным дисплеем, полноформатной клавиатурой и обладает расширенным набор функций таких как: Роуминг, Man Down, Alone Worker, Emergency Alert (Цифровая Экстренная Система/Сигнализация), SMS и шифрования.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="Lira P-312.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira P-312</h3>
+            <p>Компактная носимая радиостанция Lira P-312 имеет выходную мощность до 5 Ватт и аккумулятор реальной ёмкости 2500 мАч в комплекте.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="Lira115.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira СP-115</h3>
+            <p>LIRA СP-115 – радиостанция, которая открывает линейку бюджетных радиостанций Lira. Устройство работает в частотном диапазоне UHF 400-470 МГц, в частности, можно использовать на безлицензионных каналах PMR и LDP</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="Lira215H.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira СP-215H</h3>
+            <p>Портативная радиостанция Lira СP-215H работает в диапазоне 400-470 МГц, который включает диапазоны LPD и PMR для безлицензионного использования. </p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="Lira515.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira СP-515</h3>
+            <p>Lira CP-515 это надежная и мощная радиостанция с аккумулятором повышенной емкости в 3500 мАч предназначена для использования в тяжелых условиях эксплуатации, где нужна максимальная дальность связи</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDM-2000DMRADHOC.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Ретранслятор Lira DM-2000 DMR AD HOC</h3>
+            <p>Мэш сеть на таймслотах.
+
+                Функция AD-HOC это режим работы ретранслятора который позволяет по воздуху(радиоканалу) увязываться с аналогичным ретранслятором,и создавать свою сеть. Без дополнительных подкол.чений чрезе интернет,интранет и так далее.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDM-2000VHFDMRADHOC.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Ретранслятор Lira DM-2000 VHF DMR AD HOC</h3>
+            <p>Мэш сеть на таймслотах.
+
+                Функция AD-HOC это режим работы ретранслятора который позволяет по воздуху(радиоканалу) увязываться с аналогичным ретранслятором,и создавать свою сеть. Без дополнительных подкол.чений чрезе интернет,интранет и так далее.
+                
+                </p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraDR-1000DMR.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Ретранслятор Lira DR-1000 DMR</h3>
+            <p>LIRA DR-1000 – Выгодное решение для увеличения дальности ,еще и без перепрограммирования парка цифровых радиостанций. Ретранслятор работает в режие DMO.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+
+
+
+    <div class="product">
+        <img src="LiraDR-1000VDMR.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Ретранслятор Lira DR-1000V DMR</h3>
+            <p>LIRA DR-1000V – Оптимальное решение для увеличения дальности ,еще и без перепрограммирования парка цифровых радиостанций. Ретранслятор работает в режие DMO.</p>
+
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="LiraP-112L.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira P-112L</h3>
+            <p>Компактная рация с мощным аккумулятором,и хорошими параметрами.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraP-512H.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira P-512 H</h3>
+            <p>Рация Lira P-512H,за период присутствия на рынке в России,показала себя как надежная мощная радиостанция.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="Lira215L.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira СP-215L</h3>
+            <p>Портативная радиостанция Lira СP-215L работает в диапазоне 400-470 МГц, который включает диапазоны LPD и PMR для безлицензионного использования.</p>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <div class="product">
+        <img src="LiraP-280L.png" alt="Фото товара">
+        <div class="product-info">
+            <h3>Рация Lira P-280L</h3>
+            <p>Портативная радиостанция Lira P-280L для общения в частотном диапазоне 400-470 МГц обеспечит максимально длительное время автономной работы за счёт выходной мощности до 3 Ватт и Li-Pol аккумулятора повышенной ёмкости 3200 мАч со средним рабочим напряжением 3,7В DС.</p>
+            ">8 490.00 ₽</div>
+            <button class="btn" onclick="openForm()">Заполнить данные</button>
+        </div>
+    </div>
+    <!-- Конец товара -->
+    <!-- Повторите блок товара 28 раз, изменяя информацию о товаре -->
+    <!-- ... -->
+</div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<div class="form-popup" id="myForm">
+    <form class="form-container" >
+        <h2>Заполните данные</h2>
+
+        <label for="name"><b>Имя</b></label>
+        <input type="text" placeholder="Введите ваше имя" class="name_c">
+        
+        <label for="email"><b>Почта</b></label>
+        <input type="text" placeholder="Ссылку на ваш телеграмм или телефон" class="numer_c">
+        
+        <label for="services"><b>Доп. услуги</b></label>
+        <select class="dop_c">
+            <option value="Услуга 1">Добавить кабель</option>
+            <option value="Услуга 2">Другая антена</option>
+            <option value="Услуга 3">Аккумулятор</option>
+            <option value="Услуга 4">Техническая документация</option>
+            <option value="Услуга 5">Комплект переходников</option>
+            <option value="Услуга 6">Блок питания</option>
+            <option value="Услуга 7">Прокладка питания</option>
+            <option value="Услуга 8">Программатор</option>
+            <option value="Услуга 9">Руководство по пользованию</option>
+            <option value="Ничего">Ничего</option>
+        </select>
+
+        <button type="submit" class="btn_out">Отправить</button>
+        <button type="button" class="cancel" onclick="closeForm()">Закрыть</button>
+    </form>
+</div>
+
+<script>
+    let productData; // Глобальная переменная для хранения информации о товаре
+    let tg = window.Telegram.WebApp;
+
+    function openForm(product) {
+        productData = product; // Сохранение информации о товаре
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+
+    const buttons = document.querySelectorAll(".btn"); // Находим все кнопки "Заполнить данные"
+    buttons.forEach((button, index) => {
+        button.addEventListener("click", () => {
+            const product = {
+                title: button.parentElement.querySelector("h3").innerText,
+                desc: button.parentElement.querySelector("p").innerText,
+                // price: button.parentElement.querySelector(".price").innerText
+            };
+            openForm(product); // Передаем данные о товаре
+        });
+    });
+
+    const sBtn = document.getElementsByClassName("btn_out")[0];
+
+    sBtn.addEventListener("click", (event) => {
+        event.preventDefault(); // Остановить стандартное поведение формы
+
+        let title = document.getElementsByClassName("name_c")[0];
+        let description = document.getElementsByClassName("dop_c")[0];
+        let text = document.getElementsByClassName("numer_c")[0];
+
+        let data = {
+            customerName: title.value,
+            additionalServices: description.value,
+            contactInfo: text.value,
+            product: productData // Добавим информацию о товаре
+        };
+
+        console.log("Данные для отправки:", data); // Вывод данных
+        tg.sendData(JSON.stringify(data)); // Отправка данных
+    });
+</script>
+
+
+</body>
+</html>
