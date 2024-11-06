@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор тем для Telegram групп</title>
+    
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="assets/animatecss/animate.css">
+    <link rel="stylesheet" href="assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="assets/theme/css/style.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Inter+Tight:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=ccTd9W">
+    <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=ccTd9W" type="text/css">
+    <link rel="stylesheet" href="styles.css"> <!-- Подключение CSS -->
+</head>
+<body>
+
+<section data-bs-version="5.1" class="menu menu5 cid-utfaYLsfMJ" once="menu" id="menu05-1i">
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <a href="https://rabotanadsaitom.space/bot_lira/">
+                        <img src="assets/images/logo-137x62.jpg" alt="Mobirise Website Builder" style="height: 5rem;">
+                    </a>
+                </span>
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-black display-4" href="https://rabotanadsaitom.space/bot_lira/">Радиосвязь-Админка</a></span>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                    <li class="nav-item">
+                        <a class="nav-link link text-black display-4" href="https://t.me/c/1863067354/720">Чат</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link text-black display-4" href="https://t.me/radiolo_bot"  aria-expanded="false">Бот</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link text-black display-4" href="https://rabotanadsaitom.space/bot_lira/">Сайт</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>
+
+<section data-bs-version="5.1" class="pricing02 cid-utfb4w1u7m" id="pricing02-1j">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 content-head">
+                <div class="mbr-section-head mb-5">
+                    <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                        <strong>Рассылка&nbsp;</strong>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Первый контейнер с выбором тем -->
+        <div class="row">
+            <div class="item features-image col-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <img src="assets/images/571623756973-whatsloop-816x559.jpg" alt="Рассылка через чат">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">
+                            <strong>Рассылка через чат</strong>
+                        </h5>
+                        <p class="mbr-text mbr-fonts-style display-7">
+                            Отправляет сообщение по выбранным темам в основной чат
+                        </p>
+                        <button id="openFormBtn">Выбрать темы</button>
+                        
+                        <div id="overlay" class="overlay" style="display: none;">
+                          <div class="theme-checkbox">
+                              <h2>Выберите темы для Telegram групп:</h2>
+                              <button id="selectAllBtn">Выбрать все</button>
+                              <button id="deselectAllBtn">Снять выбор</button>
+                              <div class="theme-list">
+                                  <div class="theme-checkbox"><label><input type="checkbox" name="theme" value="Тема 1"> Срочные сообщения</label></div>
+                                  <div class="theme-checkbox"><label><input type="checkbox" name="theme" value="Тема 2"> Полезные ссылки</label></div>
+                                  <div class="theme-checkbox"><label><input type="checkbox" name="theme" value="Тема 3"> Месенджеры</label></div>
+                                  <div class="theme-checkbox"><label><input type="checkbox" name="theme" value="Тема 4"> Софт по другим радиостанциям</label></div>
+
+                              </div>
+                              <div>
+                                  <label for="message">Ваше сообщение:</label>
+                                  <textarea id="message" name="message" rows="4"></textarea>
+                              </div>
+                              <div>
+                                  <label for="file">Прикрепить файл:</label>
+                                  <input type="file" id="fileInput" name="file" accept="*">
+                              </div>
+                              <button type="button" id="sendBtn">Отправить</button>
+                              <button type="button" id="closeFormBtn">Закрыть</button>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Второй контейнер без выбора тем -->
+            <div class="item features-image col-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <img src="assets/images/571623756973-whatsloop-816x559.jpg" alt="Рассылка без выбора тем">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">
+                            <strong>Рассылка без выбора тем</strong>
+                        </h5>
+                        <p class="mbr-text mbr-fonts-style display-7">
+                            Позволяет отправить сообщение в основной чат без выбора конкретных тем.
+                        </p>
+                        <p class="mbr-text mbr-fonts-style display-7">
+                            Вы можете отправить сообщение по умолчанию.
+                        </p>
+                        <button id="openSimpleFormBtn">Заполнить форму</button>
+                        
+                        <div id="simpleOverlay" class="overlay" style="display: none;">
+                            <div class="form-container">
+                                <h2>Ваше сообщение:</h2>
+                                <div>
+                                    <label for="simpleMessage">Сообщение:</label>
+                                    <textarea id="simpleMessage" name="simpleMessage" rows="4" style="width: 100%;"></textarea>
+                                </div>
+                                <div>
+                                    <label for="simpleFile">Прикрепить файл:</label>
+                                    <input type="file" id="simpleFileInput" name="simpleFile" accept="*">
+                                </div>
+                                <button type="button" id="sendSimpleBtn">Отправить</button>
+                                <button type="button" id="closeSimpleFormBtn">Закрыть</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Третий контейнер с фотографией, текстом и кнопкой-ссылкой -->
+  <div class="item features-image col-12 col-md-6 col-lg-4">
+      <div class="item-wrapper">
+          <div class="item-img">
+                        <img src="assets/images/logo-802x362.jpg" alt="Третий контейнер">
+            </div>
+              <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">
+                            <strong>Дополнительная информация</strong>
+                        </h5>
+                        <p class="mbr-text mbr-fonts-style display-7">
+                            У нас есть новое обновление для нашего бота, пожалуйста, нажмите на ссылку ниже для дополнительной информации.
+                        </p>
+                        <a class="btn btn-primary" href="https://rabotanadsaitom.space/bot_lira/" target="_blank">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <script src="script.js"></script> <!-- Подключение JavaScript -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</section>
+</body>
+</html>

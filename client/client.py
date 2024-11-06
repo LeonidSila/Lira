@@ -24,6 +24,14 @@ now = datetime.now()
 
 @router_client.message(Command(commands=['start']))
 async def start_help_command(message : types.Message):
+    if message.from_user.id in Admin.admin_list:
+        webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/admin_lira/")
+        builder = ReplyKeyboardBuilder()
+        builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
+        keyboard_markup = builder.as_markup(resize_keyboard=True)
+        await bot.send_message(chat_id=message.from_user.id, text='Добро пожаловать, Сергей\n\nНажмите на кнопку', reply_markup=keyboard_markup)
+        return
+
     user_id = message.from_user.id
     logging.info(f'User {user_id} started the bot at {now}')
     db.cursor.execute('SELECT COUNT(*) FROM user WHERE id = ?', (user_id, ))
@@ -50,6 +58,13 @@ async def start_help_command(message : types.Message):
         
 @router_client.message(Command(commands=['help']))
 async def help_command(message : types.Message):
+    if message.from_user.id in Admin.admin_list:
+        webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/admin_lira/")
+        builder = ReplyKeyboardBuilder()
+        builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
+        keyboard_markup = builder.as_markup(resize_keyboard=True)
+        await bot.send_message(chat_id=message.from_user.id, text='Добро пожаловать, Сергей\n\nНажмите на кнопку', reply_markup=keyboard_markup)
+        return
     user_id = message.from_user.id
     logging.info(f'User {user_id} - {message.from_user.first_name} started the bot at {now}')
     db.cursor.execute('SELECT COUNT(*) FROM user WHERE id = ?', (user_id, ))
@@ -81,7 +96,7 @@ async def shop_command(message : types.Message):
     user_id = message.from_user.id
     await message.delete()
     
-    webAppInfo = types.WebAppInfo(url="https://dx78.ru/bot_lira/")
+    webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/")
     builder = ReplyKeyboardBuilder()
     builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
     

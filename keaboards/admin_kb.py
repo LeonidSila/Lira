@@ -18,3 +18,15 @@ kb_vibor_admin = ReplyKeyboardMarkup(
     selective=True
 
 )
+
+kb_vibor_client_start = ReplyKeyboardMarkup(
+    keyboard=[
+        [types.KeyboardButton(text = 'Админка')],
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True,
+    input_field_placeholder='Админка, просто нажми на кнопку',
+    selective=True
+
+)
+
