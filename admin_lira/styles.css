@@ -16,17 +16,15 @@ button:hover {
     background-color: #0056b3;
 }
 
-.overlay {
+/* .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-}
+    z-index: 10; 
+    
+} */
 
 .form-container {
     background: white;
@@ -37,11 +35,9 @@ button:hover {
 
 .theme-checkbox {
     margin-top: 1px;
-    max-height: auto;
-    width: 50%;
     height: auto; /* Уменьшенная высота */
     overflow-y: auto;
-    padding: 10px;
+    padding: 2px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
@@ -54,15 +50,7 @@ button:hover {
     background-color: #fff; /* Фоновый цвет */
     margin-bottom: 20px; /* Пробел между элементами */
 }
-.theme-list {
-    max-height: 250px; /* Ограничьте высоту для прокрутки */
-    overflow-y: auto; /* Включает вертикальную прокрутку */
-    border-top: 1px solid #ccc; /* Рамка сверху для разделения контента */
-    padding: 10px; /* Паддинг внутри списка */
-    background-color: #f9f9f9; /* Фоновый цвет списка */
-    padding: 5px;
-    border-spacing: 0
-}
+
 .theme-checkbox label {
     padding: 3px; /* Уменьшение паддингов для экономии места */
     line-height: 1.2;
@@ -80,21 +68,17 @@ textarea {
     margin-top: 10px;
     resize: none;
 }
-
+.theme-list {
+    /* Стили для списка тем */
+    max-height: 250px; 
+    overflow-y: auto;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 15px
+  }
 input[type="file"] {
     margin-top: 10px;
-}
-.overlay {
-    position: fixed;
-    top: 5px;
-    left: 5px;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10; /* Делаем overlay выше других элементов */
 }
 
 .form-container {
