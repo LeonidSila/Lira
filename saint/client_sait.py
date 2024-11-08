@@ -81,7 +81,7 @@ chat_ids = {
 # }
 
 chat_ids_value = [str(value) for value in chat_ids.values()]
-print(chat_ids_value, type(chat_ids_value), 'токины тем')
+# print(chat_ids_value, type(chat_ids_value), 'токины тем')
 
 products = {
     "Рассылка через чат": {
@@ -100,12 +100,10 @@ async def parse_data(message: types.Message):
     data = json.loads(message.web_app_data.data)
     if 'themes' in data and 'message' in data and len(data) == 2:
         matched_topics = data['themes']
-        print(matched_topics, type(matched_topics), 'токины тем с сайта')
         text_user = str(data['message'])
         # Код для выполнения, если есть ключи 'themes' и 'message', и их всего 2
         # Рассылка с по темам 
         for topic_id in matched_topics:
-            print(topic_id, type(topic_id))
             try:
                 if topic_id in chat_ids_value:
                     await bot.send_message(chat_id=Chat.chat_id, text=text_user, message_thread_id=topic_id)
