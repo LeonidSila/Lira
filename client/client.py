@@ -53,7 +53,7 @@ async def start_help_command(message: types.Message):
     logging.info(f'User {user_id} started the bot at {now}')
 
     if message.from_user.id in Admin.admin_list:
-        webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/admin_lira/")
+        webAppInfo = types.WebAppInfo(url="https://dx78.ru/bot_lira/admin_lira/")
         builder = ReplyKeyboardBuilder()
         builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
         keyboard_markup = builder.as_markup(resize_keyboard=True)
@@ -80,7 +80,7 @@ async def help_command(message: types.Message):
     logging.info(f'User {user_id} - {message.from_user.first_name} started the bot at {now}')
 
     if message.from_user.id in Admin.admin_list:
-        webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/admin_lira/")
+        webAppInfo = types.WebAppInfo(url="https://dx78.ru/bot_lira/admin_lira/")
         builder = ReplyKeyboardBuilder()
         builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
         keyboard_markup = builder.as_markup(resize_keyboard=True)
@@ -106,7 +106,7 @@ async def shop_command(message: types.Message):
     user_id = message.from_user.id
     await message.delete()
 
-    webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/")
+    webAppInfo = types.WebAppInfo(url="https://dx78.ru/bot_lira/")
     builder = ReplyKeyboardBuilder()
     builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
 
@@ -135,14 +135,20 @@ async def send_question_to_admin(user_id, user_text, user_name, user_lastname, u
     """Отправляет вопрос пользователя администратору."""
     if username is None:
         await bot.forward_message(chat_id=Admin.Leonid, from_chat_id=user_id, message_id=message.message_id)
+        await bot.forward_message(chat_id=Admin.Serei, from_chat_id=user_id, message_id=message.message_id)
         await bot.send_message(chat_id=Admin.Leonid,
+                               text=f'<b>Чат-поддержка</b>\n\n{user_id} - ID Обротившигося\n\n{user_text} - Вопрос Клиента\n\n{user_name} - Имя клиента\n\n{user_lastname} - 2-ое Имя клиента\n\n{formatted_date_time} Время обращения',
+                               parse_mode=ParseMode.HTML)
+        await bot.send_message(chat_id=Admin.Serei,
                                text=f'<b>Чат-поддержка</b>\n\n{user_id} - ID Обротившигося\n\n{user_text} - Вопрос Клиента\n\n{user_name} - Имя клиента\n\n{user_lastname} - 2-ое Имя клиента\n\n{formatted_date_time} Время обращения',
                                parse_mode=ParseMode.HTML)
     else:
         await bot.send_message(chat_id=Admin.Leonid,
                                text=f'<b>Чат-поддержка</b>\n\n{user_id} - ID Обротившигося\n\n{user_text} - Вопрос Клиента\n\n{user_name} - Имя клиента\n\n{user_lastname} - 2-ое Имя клиента\n\n@{username}- ссылка на клиента\n\n{formatted_date_time} Время обращения',
                                parse_mode=ParseMode.HTML)
-
+        await bot.send_message(chat_id=Admin.Serei,
+                               text=f'<b>Чат-поддержка</b>\n\n{user_id} - ID Обротившигося\n\n{user_text} - Вопрос Клиента\n\n{user_name} - Имя клиента\n\n{user_lastname} - 2-ое Имя клиента\n\n{formatted_date_time} Время обращения',
+                               parse_mode=ParseMode.HTML)
 
 @router_client.message(Wait.choosing_help)
 async def form_help(message: types.Message, state: FSMContext):
@@ -203,6 +209,10 @@ async def welcome_new_member(message: Message):
         except Exception:    
             await bot.send_message(
                 chat_id=Admin.Serei,
+                text=(
+                    f"Cергей! Появился новый пользователь {new_member.full_name} в группе, и мне не удалось отправить сообщение."))
+            await bot.send_message(
+                chat_id=Admin.Leonid,
                 text=(
                     f"Cергей! Появился новый пользователь {new_member.full_name} в группе, и мне не удалось отправить сообщение."))
 
