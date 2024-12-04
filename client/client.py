@@ -23,7 +23,7 @@ class Wait(StatesGroup):
     choosing_help = State()
 
 
-now = datetime.now()
+
 
 
 async def register_user(message):
@@ -34,12 +34,20 @@ async def register_user(message):
     last_name = message.from_user.last_name
     username = message.from_user.username
     language_code = message.from_user.language_code
+            # Проверяем, существует ли пользователь
+    db.cursor.execute('SELECT COUNT(*) FROM user WHERE id = ?', (user_id,))
+    if db.cursor.fetchone()[0] > 0:
+        logging.info("Пользователь уже зарегистрирован.")
+        await send_admin_leonid_log(text=f'Пользователь уже зарегестрирован {user_id}')
+        return  # Выход, если пользователь уже зарегистрирован
     db.cursor.execute(
         'INSERT INTO user (id, is_bot, first_name, last_name, username, language_code) VALUES (?, ?, ?, ?, ?, ?)',
         (user_id, is_bot, first_name, last_name, username, language_code)
     )
     db.conn.commit()
 
+async def send_admin_leonid_log(text):
+    await bot.send_message(chat_id=Admin.Leonid, text=text)
 
 async def send_welcome_message(chat_id):
     """Отправляет приветственное сообщение пользователю."""
@@ -50,6 +58,7 @@ async def send_welcome_message(chat_id):
 @router_client.message(Command(commands=['start']))
 async def start_help_command(message: types.Message):
     user_id = message.from_user.id
+    now = datetime.now()
     logging.info(f'User {user_id} started the bot at {now}')
 
     if message.from_user.id in Admin.admin_list:
@@ -62,21 +71,25 @@ async def start_help_command(message: types.Message):
     db.cursor.execute('SELECT COUNT(*) FROM user WHERE id = ?', (user_id,))
     db.conn.commit()
     user_count = db.cursor.fetchone()[0]
-
+    print(user_count)
     if user_count == 0:
+        # Регистрируем нового пользователя
         await register_user(message)
         await bot.send_message(
             chat_id=user_id,
             text="Вы успешно прошли регистрацию, вот мои возможности\n\n1) /shop - Магазин нашей продукции\n\n2) /help - Помощь в случае возникновения вопросов",
             reply_markup=client_kb.kb_vibor_client_start
         )
+        await bot.send_message(chat_id=Admin.Leonid, text=f"Зарегестрировал Нового пользователя {message.from_user.id}\n{message.from_user.full_name}\n{message.from_user.username}\n{message.from_user.first_name}")
     else:
+        # Пользователь уже есть в базе данных, отправляем приветственное сообщение
         await send_welcome_message(user_id)
 
 
 @router_client.message(Command(commands=['help']))
 async def help_command(message: types.Message):
     user_id = message.from_user.id
+    now = datetime.now()
     logging.info(f'User {user_id} - {message.from_user.first_name} started the bot at {now}')
 
     if message.from_user.id in Admin.admin_list:
@@ -96,6 +109,7 @@ async def help_command(message: types.Message):
         await register_user(message)
         await bot.send_message(chat_id=user_id, text="Вы успешно прошли регистрацию\n\nЧем могу помочь?",
                                reply_markup=client_kb.kb_vibor_client_start)
+        await bot.send_message(chat_id=Admin.Leonid, text=f"Зарегестрировал Нового пользователя {message.from_user.id}\n{message.from_user.full_name}\n{message.from_user.username}\n{message.from_user.first_name}")
     else:
         await bot.send_message(chat_id=user_id, text="Передите по кнопке в чат поддержки",
                                reply_markup=client_kb.kb_vibor_client_help)
