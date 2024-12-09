@@ -24,8 +24,6 @@ class Wait(StatesGroup):
 
 
 
-
-
 async def register_user(message):
     """Регистрирует пользователя в базе данных."""
     user_id = message.from_user.id
@@ -187,6 +185,12 @@ async def form_help(message: types.Message, state: FSMContext):
 
 @router_client.message(F.new_chat_members)
 async def welcome_new_member(message: Message):
+    if message.chat.id == Chat.chat_id:  
+        group_name = "Радиосвязь-СПб Большая"
+    elif message.chat.id == Chat.chat_id_m: 
+        group_name = "Радиосвязь маленькая"
+    else:
+        group_name = "Тестовая гурппа"
     text = (
         "👋 Приветствуем вас в группе от лица компании «Радиосвязь СПб»!\n\n"
         "Администратор канала - Сергей - @DX78RU\n\n"
@@ -204,6 +208,7 @@ async def welcome_new_member(message: Message):
         [InlineKeyboardButton(text="Помощь", callback_data="help")]
     ])
     BOT_LINK = 'https://t.me/radiolira_bot'
+    print(message.chat.id, type(message.chat.id), type(Chat.chat_id))
     for new_member in message.new_chat_members:
         try:
             photo = FSInputFile('photo/logo.png')
@@ -214,22 +219,31 @@ async def welcome_new_member(message: Message):
             )
             await bot.send_location(
                 chat_id=new_member.id,
-                latitude=59.970992,  # Замените на фактические координаты
-                longitude=30.364126,  # Замените на фактические координаты
+                latitude=59.970992,  
+                longitude=30.364126,  
             )
     
             await bot.send_message(new_member.id, "Добро пожаловать в группу! Если у вас возникнут вопросы, обращайтесь.",
                                    reply_markup=keyboard)
+            
+            await bot.send_message(
+                chat_id=Admin.Serei,
+                text=(
+                    f"Cергей! Появился новый пользователь {new_member.full_name} из группы {group_name}."))
+            await bot.send_message(
+                chat_id=Admin.Leonid,
+                text=(
+                    f"Cергей! Появился новый пользователь {new_member.full_name} из группы {group_name}."))
+
         except Exception:    
             await bot.send_message(
                 chat_id=Admin.Serei,
                 text=(
-                    f"Cергей! Появился новый пользователь {new_member.full_name} в группе, и мне не удалось отправить сообщение."))
+                    f"Cергей! Появился новый пользователь {new_member.full_name} из группы {group_name}, и мне не удалось отправить сообщение."))
             await bot.send_message(
                 chat_id=Admin.Leonid,
                 text=(
-                    f"Cергей! Появился новый пользователь {new_member.full_name} в группе, и мне не удалось отправить сообщение."))
-
+                    f"Cергей! Появился новый пользователь {new_member.full_name} из группы {group_name}, и мне не удалось отправить сообщение."))
 
 @router_client.callback_query(F.data == 'shop')
 async def shop_handler(callback: CallbackQuery):
