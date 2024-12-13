@@ -148,7 +148,7 @@ async def parse_data(message: types.Message, state: FSMContext):
         await bot.send_message(chat_id=Admin.Leonid, text=f'Имя - <b>{result[0]}</b>\n\nДоп Услуга - <b>{result[1]}</b>\n\nКонтакты - <code>{result[2]}</code>\n\nПродукт по которому обратились - <b>{result[3]}</b>\n\nДата- <b>{formatted_date_time}</b>',
                        parse_mode=ParseMode.HTML, reply_markup=types.ReplyKeyboardRemove())
         await bot.send_message(chat_id=Admin.Serei, text=f'Имя - <b>{result[0]}</b>\n\nДоп Услуга - <b>{result[1]}</b>\n\nКонтакты - <code>{result[2]}</code>\n\nПродукт по которому обратились - <b>{result[3]}</b>\n\nДата- <b>{formatted_date_time}</b>',
-                       parse_mode=ParseMode.HTML, reply_markup=types.ReplyKeyboardRemove())
+                        parse_mode=ParseMode.HTML, reply_markup=types.ReplyKeyboardRemove())
     else:
         await bot.send_message(chat_id=Admin.Leonid, text="Получил данные с сайта, но не смог обработать")
 

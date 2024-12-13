@@ -23,6 +23,8 @@ class Wait(StatesGroup):
     choosing_help = State()
 
 
+now = datetime.now()
+
 
 async def register_user(message):
     """Регистрирует пользователя в базе данных."""
@@ -32,7 +34,7 @@ async def register_user(message):
     last_name = message.from_user.last_name
     username = message.from_user.username
     language_code = message.from_user.language_code
-            # Проверяем, существует ли пользователь
+    # Проверяем, существует ли пользователь
     db.cursor.execute('SELECT COUNT(*) FROM user WHERE id = ?', (user_id,))
     if db.cursor.fetchone()[0] > 0:
         logging.info("Пользователь уже зарегистрирован.")
@@ -43,9 +45,9 @@ async def register_user(message):
         (user_id, is_bot, first_name, last_name, username, language_code)
     )
     db.conn.commit()
-
 async def send_admin_leonid_log(text):
     await bot.send_message(chat_id=Admin.Leonid, text=text)
+
 
 async def send_welcome_message(chat_id):
     """Отправляет приветственное сообщение пользователю."""
@@ -56,11 +58,10 @@ async def send_welcome_message(chat_id):
 @router_client.message(Command(commands=['start']))
 async def start_help_command(message: types.Message):
     user_id = message.from_user.id
-    now = datetime.now()
     logging.info(f'User {user_id} started the bot at {now}')
 
     if message.from_user.id in Admin.admin_list:
-        webAppInfo = types.WebAppInfo(url="https://dx78.ru/bot_lira/admin_lira/")
+        webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/admin_lira/")
         builder = ReplyKeyboardBuilder()
         builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
         keyboard_markup = builder.as_markup(resize_keyboard=True)
@@ -69,9 +70,8 @@ async def start_help_command(message: types.Message):
     db.cursor.execute('SELECT COUNT(*) FROM user WHERE id = ?', (user_id,))
     db.conn.commit()
     user_count = db.cursor.fetchone()[0]
-    print(user_count)
+
     if user_count == 0:
-        # Регистрируем нового пользователя
         await register_user(message)
         await bot.send_message(
             chat_id=user_id,
@@ -80,18 +80,16 @@ async def start_help_command(message: types.Message):
         )
         await bot.send_message(chat_id=Admin.Leonid, text=f"Зарегестрировал Нового пользователя {message.from_user.id}\n{message.from_user.full_name}\n{message.from_user.username}\n{message.from_user.first_name}")
     else:
-        # Пользователь уже есть в базе данных, отправляем приветственное сообщение
         await send_welcome_message(user_id)
 
 
 @router_client.message(Command(commands=['help']))
 async def help_command(message: types.Message):
     user_id = message.from_user.id
-    now = datetime.now()
     logging.info(f'User {user_id} - {message.from_user.first_name} started the bot at {now}')
 
     if message.from_user.id in Admin.admin_list:
-        webAppInfo = types.WebAppInfo(url="https://dx78.ru/bot_lira/admin_lira/")
+        webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/admin_lira/")
         builder = ReplyKeyboardBuilder()
         builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
         keyboard_markup = builder.as_markup(resize_keyboard=True)
@@ -118,7 +116,7 @@ async def shop_command(message: types.Message):
     user_id = message.from_user.id
     await message.delete()
 
-    webAppInfo = types.WebAppInfo(url="https://dx78.ru/bot_lira/")
+    webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/")
     builder = ReplyKeyboardBuilder()
     builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
 
@@ -161,6 +159,7 @@ async def send_question_to_admin(user_id, user_text, user_name, user_lastname, u
         await bot.send_message(chat_id=Admin.Serei,
                                text=f'<b>Чат-поддержка</b>\n\n{user_id} - ID Обротившигося\n\n{user_text} - Вопрос Клиента\n\n{user_name} - Имя клиента\n\n{user_lastname} - 2-ое Имя клиента\n\n{formatted_date_time} Время обращения',
                                parse_mode=ParseMode.HTML)
+
 
 @router_client.message(Wait.choosing_help)
 async def form_help(message: types.Message, state: FSMContext):
@@ -245,12 +244,13 @@ async def welcome_new_member(message: Message):
                 text=(
                     f"Cергей! Появился новый пользователь {new_member.full_name} из группы {group_name}, и мне не удалось отправить сообщение."))
 
+
 @router_client.callback_query(F.data == 'shop')
 async def shop_handler(callback: CallbackQuery):
     user_id = callback.from_user.id
     await callback.message.delete()
 
-    webAppInfo = types.WebAppInfo(url="https://dx78.ru/bot_lira/")
+    webAppInfo = types.WebAppInfo(url="https://rabotanadsaitom.space/bot_lira/")
     builder = ReplyKeyboardBuilder()
     builder.add(types.KeyboardButton(text='Сайт', web_app=webAppInfo))
 
